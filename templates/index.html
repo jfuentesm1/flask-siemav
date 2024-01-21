@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTROL DE REPARACIONES </title>
+
+    <style>
+        body {
+            font-family: 'Calibri', sans-serif;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 15px 20px; /* Ajusta estos valores según tus preferencias */
+            font-size: 16px;
+        }
+        .grupo-campos {
+            margin-bottom: 10px;
+        }
+
+        .menu-desplegable {
+            width: 200px;
+        }
+        .label-separado {
+            margin-top: 15px;
+        }
+        .menu-desplegable {
+            width: 300px; /* Ancho del menú desplegable */
+            height: 40px; /* Altura del menú desplegable */
+        }
+        
+    </style>
+
+</head>
+<body>
+    <h1>REPORTE DE TARJETAS SIEMAV</h1>
+    <h1>bienvenido {{ titulo }}</h1>
+    <form action="/reporte" method="post">
+        <label for="numeroASP">tarjetas asp:</label>
+        <input type="number" id="numeroASP" name="numeroASP" required>
+
+        <label for="numeroAMA">tarjetas ama:</label>
+        <input type="number" id="numeroAMA" name="numeroAMA" required>
+
+        <button type="submit" name= "enviar_numeros"> Enviar Números</button>
+
+        <div class="grupo-campos">
+            <label class="label-separado" for="opcion">menu de componentes:</label>
+            <select id="opcion" name="opcion" class="menu-desplegable">
+                    <option value="mosfet">mosfet</option>
+                    <option value="diodos">diodos</option>
+                    <option value="transistor">transistor </option>
+                    <option value="regular">regulador </option>              
+                    <option value="opcion5">Opción 5</option>
+            </select>
+    
+            <label class="label-separado" for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" name="cantidad" required>
+    
+            <button type="submit" name="enviar_opcion">Enviar</button>
+            
+        </div>
+    </form>
+</body>
+</html>

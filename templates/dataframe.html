@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEPARTAMENTO DE REPARACIONES</title>
+</head>
+<style>
+    body {
+        font-family: 'Calibri', sans-serif;
+    }
+
+    form {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    button {
+        padding: 15px 20px; /* Ajusta estos valores según tus preferencias */
+        font-size: 16px;
+    }
+    /* Añadir espacio entre el DataFrame y el botón */
+    .espacio {
+        margin-bottom: 20px;
+    }
+    
+</style>
+<body>
+    <h1>REPORTE DE MOVIMIENTO:</h1>
+    <!-- Renderizar el DataFrame en una tabla HTML -->
+    <div class="espacio">
+        {{ table | safe }}
+    </div>
+    
+    <form action="/">
+        <button type="submit">Volver a la página principal</button>
+    </form>
+</body>
+</html>
