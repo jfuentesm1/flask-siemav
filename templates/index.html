@@ -58,22 +58,27 @@
         <label for="numeroAMA">tarjetas ama:</label>
         <input type="number" id="numeroAMA" name="numeroAMA" required>
 
-        <button type="submit" name= "enviar_numeros"> Enviar Números</button>
+        <label for="sector">sector:</label>
+        <input type="text" id="sector" name="sector" required>
 
+        <button type="submit" name= "numeros_y_sector"> enviar datos</button>
+
+        
+        </div>
+        
         <div class="grupo-campos">
             <label class="label-separado" for="opcion">menu de componentes:</label>
             <select id="opcion" name="opcion" class="menu-desplegable">
-                    <option value="mosfet">mosfet</option>
+                    <option value="Q11 AMA"> Q11 AMA: (ORG1/F1/C1)</option>
                     <option value="diodos">diodos</option>
                     <option value="transistor">transistor </option>
                     <option value="regular">regulador </option>              
                     <option value="opcion5">Opción 5</option>
             </select>
     
-            <label class="label-separado" for="cantidad">Cantidad:</label>
+            <label class="label-separado" for="cantidad">componentes usados:</label>
             <input type="number" id="cantidad" name="cantidad" required>
-    
-            <button type="submit" name="enviar_opcion">Enviar</button>
+            <button type="submit" name="componentes_usados">enviar cantidad</button>
             
         </div>
     </form>

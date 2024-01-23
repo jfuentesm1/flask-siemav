@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import buscador as bus
 app = Flask(__name__)
+
 def usuarios():
     ip_cliente = request.remote_addr
     usuario = bus.identificador(ip_cliente)
@@ -9,16 +10,17 @@ def usuarios():
 def excel_registro():
     conectados = usuarios()
     
-    if 'enviar_numeros' in request.form:
+    if 'numeros_y_sector' in request.form:
         # Procesar los números ASP y AMA
         componetes= None
         cantidad= None
         numeroASP = int(request.form['numeroASP'])
         numeroAMA = int(request.form['numeroAMA'])
-        excel1 = bus.escritura_excel(numeroASP,numeroAMA,componetes,cantidad,conectados,direccion=r'/home/pi/FlaskApp/inventario reparaciones/registro.xlsx')              
+        sector = request.form['sector'].upper()
+        excel1 = bus.escritura_excel(numeroASP,numeroAMA, sector,componetes,cantidad,conectados,direccion=r'/home/pi/FlaskApp/inventario reparaciones/registro.xlsx')              
         return excel1
     
-    elif 'enviar_opcion' in request.form:
+    elif 'componentes_usados' in request.form:
         #  Procesar segundo excel y escribir
         numeroASP = None
         numeroAMA = None
