@@ -26,14 +26,23 @@
         }
 
         button {
-            padding: 15px 20px; /* Ajusta estos valores según tus preferencias */
+            padding: 15px 20px; 
             font-size: 16px;
+        }
+        h1 {
+        font-size: 24px; 
+        }
+
+
+        p b {
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
     <h1>REVISION DEL MOVIMIENTO DE TARJETAS Y COMPONENTES</h1>
-    <h1>ingrese fecha:</h1>
+    <p><b>Ingrese fecha a revisar: </b></p>
+
     <form action="/lecturas" method="post">
         <label for="año">Año:</label>
         <input type="number" id="year" name="year" required>
@@ -44,8 +53,8 @@
         <label for="dia">Día:</label>
         <input type="number" id="day" name="day" required>
 
-        <button type="submit" name="revisar_tarjetas">tarjetas ama y asp </button>
-        <button type="submit" name="revisar_componentes">componentes </button>
+        <button type="submit" name="revisar_tarjetas">Tarjetas </button>
+        <button type="submit" name="revisar_componentes">Componetes </button>
     </form>
     </body>
 </html>

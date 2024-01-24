@@ -25,21 +25,21 @@ def listado_componetes(reparacion):
             return identificador
     return False
 
-def escritura_excel(numeroASP:int, numeroAMA:int, sector:str,componetes,cantidad_componentes:int, usuario, direccion):
+def escritura_excel(sector:str, clase:str ,recibidas:int, reparadas:int, descartadas:int, componetes,cantidad_componentes:int, usuario, direccion):
 
     fecha = datetime.now().strftime("%Y-%m-%d")
     try:
         df = pd.read_excel(direccion)
     except FileNotFoundError:
-        df = pd.DataFrame(columns=['reparaciones asp','reparaciones ama','sector','fecha','responsable'])
+        df = pd.DataFrame(columns=['fecha','camaronera','clase','recibidas','reparadas','descartadas','responsable'])
 
     if direccion == r'/home/pi/FlaskApp/inventario reparaciones/registro.xlsx':   
-        nueva_fila = {'reparaciones asp': int(numeroASP), 'reparaciones ama': int(numeroAMA), 'sector':sector, 'fecha' :fecha ,'responsable': usuario}
+        nueva_fila = {'fecha' :fecha, 'camaronera': sector, 'clase':clase, 'recibidas': recibidas, 'reparadas': reparadas, 'descartadas':descartadas,'responsable': usuario}
         df = df.append(nueva_fila, ignore_index=True)
 
     elif direccion == r'/home/pi/FlaskApp/inventario reparaciones/componetes usados.xlsx':
         componente_necesario = listado_componetes(componetes)
-        nueva_fila = {'componentes':componente_necesario,'cantidad':int(cantidad_componentes), 'fecha': fecha, 'responsable': usuario}
+        nueva_fila = {'fecha': fecha,'componentes':componente_necesario,'cantidad':int(cantidad_componentes), 'responsable': usuario}
         df = df.append(nueva_fila, ignore_index=True)
 
     df.to_excel(direccion, index=False)
@@ -64,33 +64,3 @@ def filtrar_registros(año,mes,dia):
 
     return df1, df2
 
-
-
-
-
-
-
-
-
-
-'''fecha = f'{año}-{mes:02d}-{dia:02d}'
-
-   df1 = pd.read_excel(r"/home/pi/FlaskApp/inventario reparaciones/registro.xlsx")
-   
-   df2 = pd.read_excel(r"/home/pi/FlaskApp/inventario reparaciones/componetes usados.xlsx")
-
-   if 'fecha' not in df1.columns:# or 'fecha' not in df2.columns:
-       data_registro = pd.DataFrame()
-       data_componetes = df2.loc[df2['fecha'] == fecha]
-       return data_registro, data_componetes
-   
-   elif 'fecha' not in df2.columns:
-        data_componetes = pd.DataFrame()
-        data_registro = df1.loc[df1['fecha'] == fecha]
-        return data_registro , data_componetes
-   
-   else: 
-       data_registro = df1.loc[df1['fecha'] == fecha]
-       data_componetes = df2.loc[df2['fecha'] == fecha]
-       return data_registro, data_componetes
-       '''

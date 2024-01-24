@@ -9,6 +9,9 @@
         body {
             font-family: 'Calibri', sans-serif;
         }
+        .titulo {
+        font-size: 20px;
+        }
 
         form {
             margin-bottom: 20px;
@@ -29,45 +32,63 @@
         button {
             padding: 15px 20px; /* Ajusta estos valores según tus preferencias */
             font-size: 16px;
+            margin-top: 10px;
         }
         .grupo-campos {
             margin-bottom: 10px;
         }
 
-        .menu-desplegable {
-            width: 200px;
-        }
         .label-separado {
-            margin-top: 15px;
+            margin-top: 10px;
         }
         .menu-desplegable {
-            width: 300px; /* Ancho del menú desplegable */
-            height: 40px; /* Altura del menú desplegable */
+            width: 300px; 
+            height: 40px; 
         }
         
     </style>
 
 </head>
 <body>
-    <h1>REPORTE DE TARJETAS SIEMAV</h1>
-    <h1>bienvenido {{ titulo }}</h1>
+    <h1 class="titulo"> DEPARTAMENTO DE REPARACIONES </h1>
+    <h1 class="titulo"> Bienvenido {{ titulo }}</h1>
     <form action="/reporte" method="post">
-        <label for="numeroASP">tarjetas asp:</label>
-        <input type="number" id="numeroASP" name="numeroASP" required>
+        
+        <p><b>REPORTE DE TARJETAS:</b></p>
 
-        <label for="numeroAMA">tarjetas ama:</label>
-        <input type="number" id="numeroAMA" name="numeroAMA" required>
+        <label for="camaronera">camaronera: </label>
+        <input type="text" id="sector" name="sector" >
 
-        <label for="sector">sector:</label>
-        <input type="text" id="sector" name="sector" required>
+        <label for="recibidas">tarjetas recibidas:</label>
+        <input type="number" id="recibidas" name="recibidas" >
 
-        <button type="submit" name= "numeros_y_sector"> enviar datos</button>
+        <label for="reparadas">tarjetas reparadas:</label>
+        <input type="number" id="reparadas" name="reparadas" >
+
+        <label for="descartadas">tarjetas descartadas:</label>
+        <input type="number" id="descartadas" name="descartadas" >
+
+
+        <label for="clase">tipo de tarjeta:</label>
+        <select id="clase" name="clase" class="menu-desplegable">
+                <option value="ASP"> ASP </option>
+                <option value="AMA"> AMA</option>
+
+        </select>
+
+        <button type="submit" name= "numeros_y_sector"> enviar informe</button>
 
         
         </div>
         
         <div class="grupo-campos">
-            <label class="label-separado" for="opcion">menu de componentes:</label>
+
+            <p><b>REPORTE DE COMPONENTES:</b></p>
+
+            <label class="label-separado" for="cantidad">componentes usados:</label>
+            <input type="number" id="cantidad" name="cantidad">
+        
+            <label for="opcion">menu:</label>
             <select id="opcion" name="opcion" class="menu-desplegable">
                     <option value="Q11 AMA"> Q11 AMA: (ORG1/F1/C1)</option>
                     <option value="diodos">diodos</option>
@@ -76,9 +97,7 @@
                     <option value="opcion5">Opción 5</option>
             </select>
     
-            <label class="label-separado" for="cantidad">componentes usados:</label>
-            <input type="number" id="cantidad" name="cantidad" required>
-            <button type="submit" name="componentes_usados">enviar cantidad</button>
+            <button type="submit" name="componentes_usados">enviar informe</button>
             
         </div>
     </form>
