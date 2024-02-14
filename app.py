@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
 import buscador as bus
 app = Flask(__name__)
 
@@ -49,8 +49,9 @@ def escritura_excel():
                 clase = None
                 sector = None
 
+                buscador = bus.listado_componetes(componentes)
                 excel_componentes = bus.escritura_excel(sector, clase ,recibidas, reparadas,descartadas, componentes, cantidad, conectados, direccion=r'/home/pi/FlaskApp/inventario reparaciones/componetes usados.xlsx')              
-                return excel_componentes
+                return excel_componentes , buscador
 
     # si no se cumple ninguna de las condiciones, retornar False
     return False
@@ -95,7 +96,6 @@ def reporte_diario():
 def lectura():
     df = lectura_excel()
     return render_template('dataframe.html', table= df.to_html(classes='table table-striped'))
-
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

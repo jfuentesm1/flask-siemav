@@ -4,8 +4,8 @@ from datetime import datetime
 def identificador(ip):
     #la ip llamada super_usuario tiene acceso a la lectura general
     lista_usuarios = {
-        'JORGE FUENTES': '192.168.100.77',
-        'super_usuario': '192.168.100.78'
+        'JORGE FUENTES': '192.168.100.78',
+        'super_usuario': '192.168.100.77'
         }
     
     for usuario, identificador in lista_usuarios.items():
@@ -13,29 +13,26 @@ def identificador(ip):
             return usuario 
     return False
 
-def listado_componetes(reparacion):
-    lista_usuarios = {
-        'Q11 AMA': 'c1818',
-        'diodos': 'c1919',
-        'reguladores':'c1212'
-        }
-    
-    for usuario, identificador in lista_usuarios.items():
-        if reparacion == usuario:
-            return identificador
-    return False
+
+def listado_componetes(componente:str):
+    df = pd.read_excel(r"/home/pi/FlaskApp/inventario reparaciones/data/ubicacion de componentes.xlsx")
+    ubicaciones = dict(zip(df['codigo'], df['ubicación']))
+    for clave, identificador in ubicaciones.items():
+        if componente == clave:
+            return clave , identificador
+
 
 excel_registro = r'/home/pi/FlaskApp/inventario reparaciones/registro.xlsx'
 excel_componentes = r'/home/pi/FlaskApp/inventario reparaciones/componetes usados.xlsx'
 
-def escritura_excel(sector:str, clase:str ,recibidas:int, reparadas:int, descartadas:int, componetes,cantidad_componentes:int, usuario, direccion):
+def escritura_excel(sector:str, clase:str ,recibidas:int, reparadas:int, descartadas:int, componetes:str,cantidad_componentes:int, usuario, direccion):
 
     fecha = datetime.now().strftime("%Y-%m-%d")
 
     try:
         df = pd.read_excel(direccion)
     except FileNotFoundError:
-        df = pd.DataFrame(columns=['fecha','camaronera','clase','recibidas','reparadas','descartadas','responsable'])
+        return False
 
     if direccion == excel_registro:   
         nueva_fila = {'fecha' :fecha, 'camaronera': sector, 'clase':clase, 'recibidas': recibidas, 'reparadas': reparadas, 'descartadas':descartadas,'responsable': usuario}
@@ -43,11 +40,17 @@ def escritura_excel(sector:str, clase:str ,recibidas:int, reparadas:int, descart
 
     elif direccion == excel_componentes:
         componente_necesario = listado_componetes(componetes)
-        nueva_fila = {'fecha': fecha,'componentes':componente_necesario,'cantidad':int(cantidad_componentes), 'responsable': usuario}
-        df = df.append(nueva_fila, ignore_index=True)
+        if componente_necesario is not None:
+            codigo, _ = componente_necesario
+            nueva_fila = {'fecha': fecha,'componentes': codigo,'cantidad':int(cantidad_componentes), 'responsable': usuario}
+            df = df.append(nueva_fila, ignore_index=True)
 
     df.to_excel(direccion, index=False)
-    #print(df)
+    
+    usuarios_repetidos = df[df['fecha'] == fecha]['responsable'].value_counts()
+    '''if usuarios_repetidos.max()> 1:
+        return False'''
+    print(df)
     return df
 
 def filtrar_registros(año,mes,dia):
